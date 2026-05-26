@@ -14,7 +14,7 @@ import { PHASES } from './data/phases.js'
 const PHASE_IDS = PHASES.map(p => p.id)
 
 export default function App() {
-  const [showLanding, setShowLanding] = useState(true)
+  const [showLanding, setShowLanding] = useState(false)
   const [activeView, setActiveView] = useStorage('os_active_view', 'dashboard')
 
   // ── Auth state ─────────────────────────────────────────────────
