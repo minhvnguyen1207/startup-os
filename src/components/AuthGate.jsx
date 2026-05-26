@@ -24,7 +24,6 @@ export default function AuthGate({ children, session, loading }) {
     setError('')
     const { error: err } = await supabase.auth.signInWithOtp({
       email: email.trim(),
-      options: { emailRedirectTo: window.location.origin },
     })
     if (err) {
       setError(err.message)
