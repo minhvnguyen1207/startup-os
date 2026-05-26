@@ -1,4 +1,5 @@
 import { PHASES } from '../data/phases.js'
+import { supabase } from '../lib/supabase.js'
 
 const NAV_ITEMS = [
   { id: 'dashboard', label: 'Dashboard' },
@@ -6,7 +7,23 @@ const NAV_ITEMS = [
   { id: 'resources', label: 'Tool stack' },
 ]
 
-export default function Sidebar({ activeView, setActiveView, tasks, onHome }) {
+const btnStyle = {
+  marginTop: 6,
+  background: 'transparent',
+  border: '0.5px solid var(--border)',
+  borderRadius: 'var(--radius-sm)',
+  color: 'var(--text-tertiary)',
+  fontSize: 11,
+  padding: '5px 10px',
+  cursor: 'pointer',
+  width: '100%',
+  textAlign: 'left',
+  letterSpacing: '0.04em',
+  fontFamily: 'inherit',
+  transition: 'color 0.1s, border-color 0.1s',
+}
+
+export default function Sidebar({ activeView, setActiveView, tasks, onHome, session }) {
   const allTaskIds = PHASES.flatMap(p => p.sections.flatMap(s => s.tasks.map(t => p.id + '|' + t.id)))
   const totalTasks = allTaskIds.length
   const doneTasks = allTaskIds.filter(id => tasks[id]).length
@@ -17,6 +34,13 @@ export default function Sidebar({ activeView, setActiveView, tasks, onHome }) {
     const done = ids.filter(id => tasks[id]).length
     return { done, total: ids.length }
   }
+
+  function signOut() {
+    supabase.auth.signOut()
+  }
+
+  function hoverOn(e) { e.currentTarget.style.color = 'var(--text-primary)'; e.currentTarget.style.borderColor = 'var(--border-strong)' }
+  function hoverOff(e) { e.currentTarget.style.color = 'var(--text-tertiary)'; e.currentTarget.style.borderColor = 'var(--border)' }
 
   return (
     <aside className="sidebar">
@@ -61,26 +85,19 @@ export default function Sidebar({ activeView, setActiveView, tasks, onHome }) {
           <div className="global-progress-fill" style={{ width: globalPct + '%' }} />
         </div>
         <div className="global-progress-pct">{globalPct}% complete · {doneTasks}/{totalTasks} tasks</div>
-        <button
-          onClick={onHome}
-          style={{
-            marginTop: 12,
-            background: 'transparent',
-            border: '0.5px solid var(--border)',
-            borderRadius: 'var(--radius-sm)',
-            color: 'var(--text-tertiary)',
-            fontSize: 11,
-            padding: '5px 10px',
-            cursor: 'pointer',
-            width: '100%',
-            textAlign: 'left',
-            letterSpacing: '0.04em',
-            transition: 'color 0.1s, border-color 0.1s',
-          }}
-          onMouseEnter={e => { e.target.style.color = 'var(--text-primary)'; e.target.style.borderColor = 'var(--border-strong)' }}
-          onMouseLeave={e => { e.target.style.color = 'var(--text-tertiary)'; e.target.style.borderColor = 'var(--border)' }}
-        >
+
+        {/* Signed-in user */}
+        {session?.user?.email && (
+          <div style={{ fontSize: 10, color: 'var(--text-tertiary)', marginTop: 10, letterSpacing: '0.04em', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+            ✦ {session.user.email}
+          </div>
+        )}
+
+        <button style={btnStyle} onClick={onHome} onMouseEnter={hoverOn} onMouseLeave={hoverOff}>
           ← View landing
+        </button>
+        <button style={btnStyle} onClick={signOut} onMouseEnter={hoverOn} onMouseLeave={hoverOff}>
+          Sign out
         </button>
       </div>
     </aside>
