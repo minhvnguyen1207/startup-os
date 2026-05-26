@@ -6,7 +6,7 @@ const NAV_ITEMS = [
   { id: 'resources', label: 'Tool stack' },
 ]
 
-export default function Sidebar({ activeView, setActiveView, tasks }) {
+export default function Sidebar({ activeView, setActiveView, tasks, onHome }) {
   const allTaskIds = PHASES.flatMap(p => p.sections.flatMap(s => s.tasks.map(t => p.id + '|' + t.id)))
   const totalTasks = allTaskIds.length
   const doneTasks = allTaskIds.filter(id => tasks[id]).length
@@ -61,6 +61,27 @@ export default function Sidebar({ activeView, setActiveView, tasks }) {
           <div className="global-progress-fill" style={{ width: globalPct + '%' }} />
         </div>
         <div className="global-progress-pct">{globalPct}% complete · {doneTasks}/{totalTasks} tasks</div>
+        <button
+          onClick={onHome}
+          style={{
+            marginTop: 12,
+            background: 'transparent',
+            border: '0.5px solid var(--border)',
+            borderRadius: 'var(--radius-sm)',
+            color: 'var(--text-tertiary)',
+            fontSize: 11,
+            padding: '5px 10px',
+            cursor: 'pointer',
+            width: '100%',
+            textAlign: 'left',
+            letterSpacing: '0.04em',
+            transition: 'color 0.1s, border-color 0.1s',
+          }}
+          onMouseEnter={e => { e.target.style.color = 'var(--text-primary)'; e.target.style.borderColor = 'var(--border-strong)' }}
+          onMouseLeave={e => { e.target.style.color = 'var(--text-tertiary)'; e.target.style.borderColor = 'var(--border)' }}
+        >
+          ← View landing
+        </button>
       </div>
     </aside>
   )
