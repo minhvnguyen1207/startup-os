@@ -7,6 +7,8 @@ import Dashboard from './components/Dashboard.jsx'
 import PhaseView from './components/PhaseView.jsx'
 import JournalView from './components/JournalView.jsx'
 import ResourcesView from './components/ResourcesView.jsx'
+import FinancialView from './components/FinancialView.jsx'
+import SupplierView from './components/SupplierView.jsx'
 import LandingPage from './components/LandingPage.jsx'
 import AuthGate from './components/AuthGate.jsx'
 import { PHASES } from './data/phases.js'
@@ -43,6 +45,8 @@ export default function App() {
     tasks, setTasks,
     notes, setNotes,
     journal, setJournal,
+    financial, setFinancial,
+    suppliers, setSuppliers,
     loading: dataLoading,
   } = useCloudData(userId)
 
@@ -65,6 +69,8 @@ export default function App() {
     if (activeView === 'dashboard') return <Dashboard tasks={tasks} setActiveView={setActiveView} />
     if (activeView === 'journal') return <JournalView entries={journal} setEntries={setJournal} />
     if (activeView === 'resources') return <ResourcesView />
+    if (activeView === 'financial') return <FinancialView financial={financial} setFinancial={setFinancial} />
+    if (activeView === 'suppliers') return <SupplierView suppliers={suppliers} setSuppliers={setSuppliers} />
     if (PHASE_IDS.includes(activeView)) {
       return (
         <PhaseView

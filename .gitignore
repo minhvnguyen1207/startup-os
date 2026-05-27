@@ -3,3 +3,5 @@ dist
 .DS_Store
 *.local
 .env
+Sidebar.jsx.bak
+vite.config.js.timestamp*

@@ -4,7 +4,7 @@ export const PHASES = [
     title: 'Foundation',
     subtitle: 'Business & legal setup',
     timeline: 'Weeks 1–4',
-    color: '#888780',
+    color: '#9B9590',
     icon: '⬡',
     sections: [
       {
@@ -39,7 +39,7 @@ export const PHASES = [
     title: 'Brand identity',
     subtitle: 'Name, visual system, packaging',
     timeline: 'Weeks 2–6',
-    color: '#534AB7',
+    color: '#8B84E8',
     icon: '◈',
     sections: [
       {
@@ -77,7 +77,7 @@ export const PHASES = [
     title: 'Digital store',
     subtitle: 'Shopify + Claude Code pipeline',
     timeline: 'Weeks 4–10',
-    color: '#0F6E56',
+    color: '#32D74B',
     icon: '⬡',
     sections: [
       {
@@ -116,7 +116,7 @@ export const PHASES = [
     title: 'Marketing & launch',
     subtitle: 'Content, social, pre-launch cohort',
     timeline: 'Weeks 8–16',
-    color: '#993C1D',
+    color: '#FF6B50',
     icon: '◇',
     sections: [
       {
@@ -152,7 +152,7 @@ export const PHASES = [
     title: 'Operations',
     subtitle: 'Fulfillment, B2B, feedback loops',
     timeline: 'Ongoing',
-    color: '#3B6D11',
+    color: '#86C341',
     icon: '◉',
     sections: [
       {
